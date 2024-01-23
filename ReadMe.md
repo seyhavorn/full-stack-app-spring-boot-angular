@@ -1,4 +1,4 @@
-# Java Simple
+# Full Stack Application with Spring Boot and Angular
 
 ## Project setup
 ```
