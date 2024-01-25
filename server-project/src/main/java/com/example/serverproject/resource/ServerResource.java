@@ -31,7 +31,7 @@ public class ServerResource {
         return ResponseEntity.ok(
                 Response.builder()
                         .timeStamp(now())
-                        .data(of("servers", serverService.list(30)))
+                        .data(of("servers", serverService.list(100)))
                         .message("Servers retrieved")
                         .status(OK)
                         .statusCode(OK.value())
