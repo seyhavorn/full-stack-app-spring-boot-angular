@@ -20,6 +20,8 @@ export class ServerService {
     'Content-Type': 'application/json',
   });
 
+  private readonly options = { headers: this.headers };
+
   constructor(private http: HttpClient) {}
 
   servers$ = <Observable<CustomResponse>>(
@@ -28,15 +30,14 @@ export class ServerService {
       .pipe(tap(console.log), catchError(this.handleError))
   );
 
-  save$ = (server: Server) =>
-    <Observable<CustomResponse>>(
-      this.http
-        .post<CustomResponse>(`${this.apiUrl}/save`, {
-          server,
-          headers: this.headers,
-        })
-        .pipe(tap(console.log), catchError(this.handleError))
-    );
+  save$ = (server: Server): Observable<CustomResponse> =>
+    this.http
+      .post<CustomResponse>(
+        `${this.apiUrl}/save`,
+        JSON.stringify(server),
+        this.options
+      )
+      .pipe(tap(console.log), catchError(this.handleError));
 
   ping$ = (ipAddress: String) =>
     <Observable<CustomResponse>>(

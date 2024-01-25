@@ -38,7 +38,7 @@
                 <span>New Server</span>
               </a>
 
-              <button class="btn btn-primary mr-3">Print Report</button>
+              <button (click)="printReport()" class="btn btn-primary mr-3">Print Report</button>
             </div>
           </div>
         </div>
@@ -128,9 +128,8 @@
                 </td>
                 <td>
                   <a
-                    href=""
+                    (click)="deleteServer(server)"
                     class="delete"
-                    data-bs-toggle="modal"
                     style="cursor: pointer"
                   >
                     <i class="material-icons" title="Delete">&#xE872;</i>
@@ -231,7 +230,7 @@
           <button
             type="button"
             class="btn btn-warning"
-            id="closeModale"
+            id="closeModal"
             data-bs-dismiss="modal"
           >
             Close
@@ -239,13 +238,13 @@
           <button
             type="submit"
             class="btn btn-success"
-            [disabled]="serverForm.invalid || (isLoading$ | async)"
+            [disabled]="serverForm.invalid  || (isLoading$ | async)"
           >
-          <span style="padding-right: 1rem;">
+          <span>
             <span *ngIf="isLoading$ | async">Saving</span>
             <span *ngIf="!(isLoading$ | async)">Add</span>
           </span>
-          <div *ngIf="isLoading$ | async" class="spinner-border spinner-border-sm" role="status">
+          <div *ngIf="isLoading$ | async" class="spinner-border spinner-border-sm" role="status" style="padding-left: 1rem;">
             <span class="visually-hidden">Loading...</span>
           </div>
           </button>
@@ -254,3 +253,4 @@
     </div>
   </div>
 </div>
+<notifier-container></notifier-container>
