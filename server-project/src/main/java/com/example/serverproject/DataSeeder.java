@@ -24,6 +24,8 @@ public class DataSeeder implements CommandLineRunner {
     }
 
     private void createServers() {
+        serverRepository.save(new Server(null, "10.1.20.166", "Ubunto Linux", "16 GB", "Personal PC", "http://localhost:8080/server/image/server1.png", Status.SERVER_UP));
+
         Random random = new Random();
         for (int i = 0; i < 300; i++) {
             Server server = new Server();
@@ -35,11 +37,5 @@ public class DataSeeder implements CommandLineRunner {
             server.setStatus(Status.SERVER_DOWN);
             serverRepository.save(server);
         }
-
-//        serverRepository.save(new Server(null, "192.168.1.160", "Ubunto Linux", "16 GB", "Personal PC", "http://localhost:8080/server/image/server1.png", Status.SERVER_UP));
-//        serverRepository.save(new Server(null, "192.168.1.163", "Mac Linux", "16 GB", "Personal PC", "http://localhost:8080/server/image/server2.png", Status.SERVER_DOWN));
-//        serverRepository.save(new Server(null, "192.168.1.15", "Window Linux", "16 GB", "Personal PC", "http://localhost:8080/server/image/server3.png", Status.SERVER_UP));
-//        serverRepository.save(new Server(null, "192.168.1.001", "Window Linux", "16 GB", "Gaming", "http://localhost:8080/server/image/server4.png", Status.SERVER_DOWN));
-//        serverRepository.save(new Server(null, "192.168.1.065", "HongMeng OS", "133 GB", "office", "http://localhost:8080/server/image/server4.png", Status.SERVER_UP));
     }
 }
