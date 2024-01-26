@@ -3,7 +3,7 @@ package com.example.serverproject;
 import com.example.serverproject.enemeration.Status;
 import com.example.serverproject.model.Server;
 import com.example.serverproject.repository.ServerRepository;
-import com.example.serverproject.service.ServerService;
+import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -24,17 +24,20 @@ public class DataSeeder implements CommandLineRunner {
     }
 
     private void createServers() {
+        Faker faker = new Faker();
         serverRepository.save(new Server(null, "10.1.20.166", "Ubunto Linux", "16 GB", "Personal PC", "http://localhost:8080/server/image/server1.png", Status.SERVER_UP));
 
         Random random = new Random();
-        for (int i = 0; i < 300; i++) {
+
+        for (int i = 0; i < 200; i++) {
+            int randomIndex = random.nextInt(2);
             Server server = new Server();
-            server.setIpAddress("192.168.1." + random.nextInt(100, 999)+ random.nextInt(100,999));
-            server.setName("Ubunto Linux");
-            server.setImageUrl("http://localhost:8080/server/image/server" + random.nextInt(1, 6) + ".png");
-            server.setMemory(random.nextInt(10, 99) + "GB");
-            server.setType("Mac User" + random.nextInt(1000, 9999));
-            server.setStatus(Status.SERVER_DOWN);
+            server.setIpAddress(faker.internet().publicIpV4Address());
+            server.setName(faker.name().fullName());
+            server.setImageUrl(faker.internet().image());
+            server.setMemory(random.nextInt(10, 99) + " GB");
+            server.setType(faker.name().title());
+            server.setStatus(Status.valueOf(STATUS_OPTIONS[randomIndex]));
             serverRepository.save(server);
         }
     }
